@@ -7,7 +7,7 @@ __all__ = ['VALID_PARAMETERS', 'Ingredient', 'Medication', 'Reaction', 'Patient'
 from typing import List, Dict
 
 # %% ../basics.ipynb 2
-VALID_PARAMETERS = ['SBP', 'HR', 'K', 'Cr', 'eGFR', 'decompensated', 'symptomatic', 'has_pacemaker']
+VALID_PARAMETERS = ['SBP', 'HR', 'K', 'Cr', 'eGFR', 'decompensated', 'symptomatic', 'has_pacemaker', 'av_block']
 
 # %% ../basics.ipynb 3
 class Ingredient:
