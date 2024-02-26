@@ -329,7 +329,7 @@ class MaxTolerated(RuleWithActions):
 
     def _is_satisfied(self, patient: Patient):
         if not self.current_medication: self.current_medication = self.dosing_ladder.get_current_medication_for_patient(patient)
-        if self.current_medication.name in patient.max_tolerated:
+        if self.current_medication and self.current_medication.name in patient.max_tolerated:
             return str(self.current_medication) == str(patient.max_tolerated[self.current_medication.name])
         return False
     
