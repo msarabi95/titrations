@@ -285,6 +285,12 @@ class RuleWithActions(Rule):
         self.actions_when_satisfied = self.default_actions_when_satisfied + additional_actions_when_satisfied
         self.actions_when_not_satisfied = self.default_actions_when_not_satisfied + additional_actions_when_not_satisfied
 
+    def __and__(self, other):
+        return RuleCombination([self, other], "and")
+    
+    def __or__(self, other):
+        return RuleCombination([self, other], "or")
+    
     def _get_eval_result_object(self, is_satisfied: bool, patient: Patient) -> Any:
         result = super()._get_eval_result_object(is_satisfied, patient)
 
@@ -320,7 +326,7 @@ class ConditionTitrationLimitingRule(ConditionalRule, TitrationLimitingRule):
         # TODO: this is not a neat solution, will need to think of a better way
         return TitrationLimitingRule._get_eval_result_object(self, is_satisfied, patient)
 
-# %% ../titrations2.ipynb 49
+# %% ../titrations2.ipynb 55
 class MaxTolerated(RuleWithActions):
     actions_when_satisfied = [Continue]
     def __init__(self, dosing_ladder : DosingLadder, current_medication : Optional[Medication] = None) -> None:
@@ -336,10 +342,10 @@ class MaxTolerated(RuleWithActions):
     def __repr__(self) -> str:
         return "Max tolerated dose?"
 
-# %% ../titrations2.ipynb 51
+# %% ../titrations2.ipynb 57
 htn_target = RuleWithActions('SBP', 'lt', 130, additional_actions_when_satisfied=[Continue])
 
-# %% ../titrations2.ipynb 53
+# %% ../titrations2.ipynb 59
 from inspect import isclass
 from itertools import chain
 
